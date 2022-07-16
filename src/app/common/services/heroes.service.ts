@@ -12,70 +12,91 @@ export class HeroesService {
   heroesLSKey = 'heroes';
   constructor() { }
 
-  async getHeroes(): Promise<Heroe[] | null> {
-    try {
-      if (!localStorage.getItem(this.heroesLSKey)) {
-        await fetch(this.heroesJSONPath).then(res => res.json())
-          .then(heroes => localStorage.setItem(this.heroesLSKey, JSON.stringify(heroes)));
-      }
-  
-      let heroes = localStorage.getItem(this.heroesLSKey);
-      if (heroes) {
-        let parsedHeroes = JSON.parse(heroes);
-        parsedHeroes.forEach((heroe: Heroe) => {
-          Object.defineProperty(heroe, 'votesDetails', {
-            get: function() {
-              let totalVotes = this.likes + this.dislikes;
-              let likesPercent = (this.likes * 100) / totalVotes;
-              let dislikesPercent = (this.dislikes * 100) / totalVotes;
-              return {
-                likesPercent: Math.round(likesPercent),
-                dislikesPercent: Math.round(dislikesPercent)
-              };
-            }
+  async getHeroes(): Promise<Heroe[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (!localStorage.getItem(this.heroesLSKey)) {
+          await fetch(this.heroesJSONPath).then(res => res.json())
+            .then(heroes => this.updateHeroes(heroes));
+        }
+    
+        let heroes = localStorage.getItem(this.heroesLSKey);
+        if (heroes) {
+          let parsedHeroes = JSON.parse(heroes);
+          parsedHeroes.forEach((heroe: Heroe) => {
+            Object.defineProperty(heroe, 'votesDetails', {
+              get: function() {
+                let totalVotes = this.likes + this.dislikes;
+                let likesPercent: number = (this.likes * 100) / totalVotes;
+                let dislikesPercent: number = (this.dislikes * 100) / totalVotes;
+                return {
+                  likesPercent: Math.round(likesPercent),
+                  dislikesPercent: Math.round(dislikesPercent)
+                };
+              }
+            });
           });
-        });
-        return parsedHeroes;
-      } else {
-        return null;
+          resolve(parsedHeroes);
+        } else {
+          reject();
+        }
+      } catch (error) {
+        console.log(error);
+        reject();
       }
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
+    })
   }
 
-  async getHeroeById(id: number): Promise<Heroe | null> {
-    try {
-      let heroes: Heroe[] | null = await this.getHeroes();
-      if (heroes) {
+  async getHeroeById(id: number): Promise<Heroe> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let heroes: Heroe[] = await this.getHeroes();
         let foundHeroe = heroes.find(heroe => heroe.id === id);
         if (foundHeroe) {
-          return foundHeroe;
+          resolve(foundHeroe);
         } else {
-          return null;
+          reject();
         }
-      } else {
-        return null;
+      } catch (error) {
+        console.log(error);
+        reject();
       }
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
+    })
   }
 
-  async getHeroeByIdNotIn(ids: number[]): Promise<Heroe[] | null> {
-    try {
-      let heroes: Heroe[] | null = await this.getHeroes();
-      if (heroes) {
+  async getHeroeByIdNotIn(ids: number[]): Promise<Heroe[]> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let heroes: Heroe[] = await this.getHeroes();
         let foundHeroes = heroes.filter(heroe => !ids.includes(heroe.id));
-        return foundHeroes;
-      } else {
-        return null;
+        resolve(foundHeroes);
+      } catch (error) {
+        console.log(error);
+        reject();
       }
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
+    });
+  }
+
+  async updateHeroe(heroe: Heroe): Promise<Heroe> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let heroes: Heroe[]= await this.getHeroes();
+        let foundHeroe = heroes.find(h => h.id === heroe.id);
+          if (foundHeroe) {
+            Object.assign(foundHeroe, heroe);
+            this.updateHeroes(heroes);
+            resolve(foundHeroe);
+          } else {
+            reject('No se pudó actualizar el heroe');
+          }
+      } catch (error) {
+        console.log(error);
+        reject('No se pudó actualizar el heroe');
+      }
+    });
+  }
+
+  private updateHeroes(heroes: Heroe[]): void {
+    localStorage.setItem(this.heroesLSKey, JSON.stringify(heroes));
   }
 }
