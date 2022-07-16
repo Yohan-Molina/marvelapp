@@ -1,3 +1,7 @@
+// Own
+// Types
+import { VotesDetails } from "@app/common/types/interfaces/votes-details";
+
 export interface Heroe {
     id: number,
     name: string, 
@@ -6,5 +10,6 @@ export interface Heroe {
     creationDateDetails: string,
     creationSectionDetails: string,
     likes: number,
-    dislikes: number
+    dislikes: number,
+    votesDetails: VotesDetails
 }
