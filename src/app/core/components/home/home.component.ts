@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NEWEST_HEROE_ID } from '@app/common/constants/app';
-import { HeroesService } from '@app/common/services/heroes.service';
+
+// Own
+// Types
 import { Heroe } from '@app/common/types/interfaces/heroe';
+// Constants
+import { NEWEST_HEROE_ID } from '@app/common/constants/app';
+// Services
+import { HeroesService } from '@app/common/services/heroes.service';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +33,6 @@ export class HomeComponent implements OnInit {
   private findOlderHeroes(): void {
     this.heroesService.getHeroeByIdNotIn([NEWEST_HEROE_ID]).then(heroes => {
       this.olderHeroes = heroes;
-      console.log(this.olderHeroes);
     });
   }
 

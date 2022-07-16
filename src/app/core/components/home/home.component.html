@@ -1,1 +1,7 @@
-<p>home works!</p>
+<div class="container" *ngIf="olderHeroes">
+    <div class="row">
+        <div *ngFor="let heroe of olderHeroes">
+            <app-heroe-card [heroe]="heroe"></app-heroe-card>
+        </div>
+    </div>
+</div>
