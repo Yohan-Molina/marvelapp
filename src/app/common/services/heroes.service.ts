@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+
+// Own
+// Types
 import { Heroe } from '@app/common/types/interfaces/heroe';
 
 @Injectable({
@@ -18,7 +21,21 @@ export class HeroesService {
   
       let heroes = localStorage.getItem(this.heroesLSKey);
       if (heroes) {
-        return JSON.parse(heroes);
+        let parsedHeroes = JSON.parse(heroes);
+        parsedHeroes.forEach((heroe: Heroe) => {
+          Object.defineProperty(heroe, 'votesDetails', {
+            get: function() {
+              let totalVotes = this.likes + this.dislikes;
+              let likesPercent = (this.likes * 100) / totalVotes;
+              let dislikesPercent = (this.dislikes * 100) / totalVotes;
+              return {
+                likesPercent: Math.round(likesPercent),
+                dislikesPercent: Math.round(dislikesPercent)
+              };
+            }
+          });
+        });
+        return parsedHeroes;
       } else {
         return null;
       }
