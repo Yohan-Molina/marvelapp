@@ -5,14 +5,30 @@
                 <div>
                     <div>likes: {{ newestHeroe.likes }}</div>
                     <div>unlikes: {{ newestHeroe.dislikes }}</div>
+                    <div style="height: 25px;">
+                        <div id="newest-hero-likes-percent" style="height: 25px; background-color: green; display: inline-block;">
+                            {{ newestHeroe.votesDetails.likesPercent }} %
+                        </div>
+                        <div id="newest-hero-dislikes-percent" style="height: 25px; background-color: red; display: inline-block;">
+                            {{ newestHeroe.votesDetails.dislikesPercent }} %
+                        </div>
+                    </div>
                 </div>
-                <div>
+                <div *ngIf="!userHasVoted; else user_has_voted">
                     <button (click)="like(newestHeroe)">LIKE</button>
                     <button (click)="dislike(newestHeroe)">UNLIKE</button>
                 </div>
-                <div>
-                    <button>VOLVER A VOTAR</button>
-                </div>
+                <ng-template #user_has_voted>
+                    <div>
+                        <div *ngIf="lastVote == voteType.LIKE">
+                            Ha registrado un like
+                        </div>
+                        <div *ngIf="lastVote == voteType.DISLIKE">
+                            Ha registrado un dislike
+                        </div>
+                        <button (click)="userHasVoted = false">VOLVER A VOTAR</button>
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>
