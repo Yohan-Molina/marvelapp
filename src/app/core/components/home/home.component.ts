@@ -14,11 +14,29 @@ import { HeroesService } from '@app/common/services/heroes.service';
   styleUrls: ['./home.component.sass']
 })
 export class HomeComponent implements OnInit {
-  newestHeroe: Heroe | null = null;
-  olderHeroes: Heroe[] | null = null;
+  newestHeroe: Heroe | undefined;
+  olderHeroes: Heroe[] | undefined;
   constructor(private heroesService: HeroesService) { }
 
   ngOnInit(): void {
+    this.getHeroesData();
+  }
+
+  like(heroe: Heroe): void {
+    heroe.likes++;
+    this.heroesService.updateHeroe(heroe).then(heroe => {
+      this.getHeroesData();
+    });
+  }
+
+  dislike(heroe: Heroe): void {
+    heroe.dislikes++;
+    this.heroesService.updateHeroe(heroe).then(heroe => {
+      this.getHeroesData();
+    });
+  }
+
+  private getHeroesData(): void {
     this.findNewestHero();
     this.findOlderHeroes();
   }
@@ -26,7 +44,6 @@ export class HomeComponent implements OnInit {
   private findNewestHero(): void {
     this.heroesService.getHeroeById(NEWEST_HEROE_ID).then(heroe => {
       this.newestHeroe = heroe;
-      console.log(this.newestHeroe);
     });
   }
 
