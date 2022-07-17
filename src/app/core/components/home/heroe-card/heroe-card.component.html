@@ -1,1 +1,34 @@
-<p>{{ heroe?.name }}</p>
+<div *ngIf="heroe">
+    <div class="card card-heroe">
+        <div class="card-heroe-img">
+            <img src="{{heroe?.picture_url}}" alt="{{ heroe?.name }}">
+        </div>
+        <div class="card-heroe-content">
+            <div class="card-heroe-body">
+                <h2>{{heroe?.name}}</h2>
+                <i class="fa-solid" [ngClass]="{ 'fa-thumbs-up icon-like ': heroe.votesDetails.likesPercent >= 50, 'fa-thumbs-down icon-dislike': heroe.votesDetails.likesPercent < 50}" ></i>
+                <p class="card-heroe-body-description">{{ heroe?.description}}</p>
+                <div class="card-heroe-body-down">
+                    <div>
+                        <button>Ver detalle</button>
+                    </div>
+                    <div class="card-heroe-body-text">
+                        <p>{{heroe?.creationDateDetails}}</p>
+                        <p>{{heroe?.creationSectionDetails}}</p>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="card-loading-bar">
+                <div [id]="'hero-likes-percent-' + heroe.id" class="card-loading-bar-up">
+                    <i class="fa-solid fa-thumbs-up"></i>
+                    <p>{{heroe?.votesDetails?.likesPercent}}%</p>
+                </div>
+                <div [id]="'hero-dislikes-percent-' + heroe.id" class="card-loading-bar-down">
+                    <i class="fa-solid fa-thumbs-down"></i>
+                    <p>{{heroe?.votesDetails?.dislikesPercent}}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+.card-heroe
+    position: relative
+    &-img img
+        height: 30em
+        width: 100%
+    &-content
+        box-sizing: border-box
+        position: absolute
+        bottom: 0
+        left: 0
+        color: white
+
+.card-heroe-body
+    padding: 0px 3px 15px 30px
+    & h2 
+        font-weight: bold
+        font-size: 40px
+    &-text p
+        font-size: 14px
+        font-weight: bold
+        line-height: 0%
+        margin-right: 10px
+    &-down 
+        display: flex
+        justify-content: space-between
+        & button
+            font-size: 15px
+            color: #fff
+            border: .13em solid #fff
+            font-weight: 700
+            padding: 6px 35px
+            background: transparent
+
+.icon-like 
+    padding: 5px
+    background: rgba(73, 193, 180, 0.9)
+.icon-dislike
+    padding: 5px
+    background: rgba(234, 176, 43, 0.9)
+
+.card-loading-bar
+    width: 100%
+    & div 
+        //width: 50%
+        color: #fff
+        display: inline-flex
+        & i, p
+            font-size: 20px
+        & i
+            padding-left: 10px
+    &-up 
+        background: rgba(73, 193, 180, 0.9)
+    &-down 
+        background: rgba(234, 176, 43, 0.9)
+
+@media (max-width: 1024px)
+    .card-heroe-body
+        & h2 
+            font-size: 35px
+
+@media (max-width: 480px)
+    .card-heroe-body-down button
+        padding: 6px 25px
+    .card-heroe-body-description
+        font-size:15px
+
+@media (max-width: 380px)
