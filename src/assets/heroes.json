@@ -2,42 +2,42 @@
     {
         "id": 1,
         "name": "Superman", 
-        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, consequuntur? Dolore perferendis saepe praesentium alias accusamus quidem incidunt voluptatum nesciunt.",
+        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, consequuntur? Dolore",
         "picture_url": "https://dam.smashmexico.com.mx/wp-content/uploads/2022/06/superman-henry-cavill-regreso-centro-universo-dc-comics-cine-cover-ok.jpg",
         "creationDateDetails": "2 meses atras",
         "creationSectionDetails": "lorem dolor",
-        "likes": 5,
-        "dislikes": 2
+        "likes": 7,
+        "dislikes": 4
     },
     {
         "id": 2,
         "name": "Thor", 
-        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, consequuntur? Dolore perferendis saepe praesentium alias accusamus quidem incidunt voluptatum nesciunt.",
+        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, consequuntur? Dolore",
         "picture_url": "https://i0.wp.com/hipertextual.com/wp-content/uploads/2022/05/Thor-156.jpg?fit=2560%2C1440&quality=50&strip=all&ssl=1",
         "creationDateDetails": "2 meses atras",
         "creationSectionDetails": "lorem dolor",
-        "likes": 2,
-        "dislikes": 9
+        "likes": 4,
+        "dislikes": 7
     },
     {
         "id": 3,
         "name": "Batman", 
-        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, consequuntur? Dolore perferendis saepe praesentium alias accusamus quidem incidunt voluptatum nesciunt.",
+        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, consequuntur? Dolore",
         "picture_url": "https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/styles/1200/public/media/image/2022/03/ya-sabemos-plataforma-desembarcara-batman-mismo-ano-2634205.jpg?itok=uW3hHZc0",
         "creationDateDetails": "2 meses atras",
         "creationSectionDetails": "lorem dolor",
-        "likes": 5,
-        "dislikes": 5
+        "likes": 4,
+        "dislikes": 7
     },
     {
         "id": 4,
         "name": "Spiderman", 
-        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, consequuntur? Dolore perferendis saepe praesentium alias accusamus quidem incidunt voluptatum nesciunt.",
+        "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, consequuntur? Dolore",
         "picture_url": "https://cdn.pocket-lint.com/r/s/1200x630/assets/images/159643-tv-news-spider-man-no-way-home-image1-dryautoefj.jpg",
         "creationDateDetails": "2 meses atras",
         "creationSectionDetails": "lorem dolor",
-        "likes": 10,
-        "dislikes": 6
+        "likes": 7,
+        "dislikes": 4
     },
     {
         "id": 5,

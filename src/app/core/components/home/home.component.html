@@ -1,44 +1,95 @@
 <div>
-    <div *ngIf="newestHeroe">
-        <div class="container-fluid">
-            <div class="row">
-                <div>
-                    <div>likes: {{ newestHeroe.likes }}</div>
-                    <div>unlikes: {{ newestHeroe.dislikes }}</div>
-                    <div style="height: 25px;">
-                        <div id="newest-hero-likes-percent" style="height: 25px; background-color: green; display: inline-block;">
-                            {{ newestHeroe.votesDetails.likesPercent }} %
-                        </div>
-                        <div id="newest-hero-dislikes-percent" style="height: 25px; background-color: red; display: inline-block;">
-                            {{ newestHeroe.votesDetails.dislikesPercent }} %
+    <div *ngIf="newestHeroe && updateNewstHeroPercentBars()" class="first-section">
+        <div class="first-section-img">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-8 col-md-6">
+                        <div class="card first-card">
+                            <div *ngIf="!userHasVoted; else user_has_voted">
+                                <div class="card-body first-card-body">
+                                    <span class="first-card-tx">Dinos tu opinión sobre</span>
+                                    <h2 class="first-card-title">{{newestHeroe.name}}?</h2>
+                                    <p class="first-card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                                        Consequuntur dolor aut, voluptatibus suscipit iste 
+                                        cumque pariatur sunt velit.</p>
+                                    <a href="" class="first-card-link">
+                                        <span><i class="fa-solid fa-angles-up"></i></span>Más Información
+                                    </a>
+                                    <h2 class="first-card-subtitle">¿Cuál es tu voto?</h2>
+                                </div>
+                                <div class="first-card-button">
+                                    <button class="first-card-button-up" (click)="like(newestHeroe)">
+                                        <i class="fa-solid fa-thumbs-up"></i></button>
+                                    <button class="first-card-button-down" (click)="dislike(newestHeroe)">
+                                        <i class="fa-solid fa-thumbs-down"></i></button>
+                                </div>
+                            </div>
+                            <ng-template #user_has_voted>
+                                <div class="card-back">
+                                    <div *ngIf="lastVote == voteType.LIKE">
+                                        <h2>Marvel - {{newestHeroe.name}}</h2>
+                                        <div class="card-back-icon">
+                                            <span class="card-back-icon-up"><i class="fa-solid fa-thumbs-up"></i></span>
+                                            <p>Tu voto ha sido registrado!</p>
+                                        </div>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In libero blanditiis necessitatibus 
+                                            vel assumenda dolorem hic. Cum nihil in error fugit.</p>
+                                    </div>
+                                    <div *ngIf="lastVote == voteType.DISLIKE">
+                                        <h2>Marvel - {{newestHeroe.name}}</h2>
+                                        <div class="card-back-icon">
+                                            <span class="card-back-icon-down"><i class="fa-solid fa-thumbs-down"></i></span>
+                                            <p>Tu voto ha sido registrado!</p>
+                                        </div>
+                                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt est numquam porro, 
+                                            minima tempore quam saepe placeat eum reiciendis accusamus asperiores.</p>
+                                    </div>
+                                    <div class="card-back-button">
+                                        <button (click)="userHasVoted = false"><i class="fa-solid fa-angles-left"></i> Volver a votar</button>
+                                    </div>
+                                </div>
+                            </ng-template>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="!userHasVoted; else user_has_voted">
-                    <button (click)="like(newestHeroe)">LIKE</button>
-                    <button (click)="dislike(newestHeroe)">UNLIKE</button>
+            </div>
+        </div>
+        <div class="loading-bar">
+            <div class="loading-bar-content">
+                <div [id]="'hero-likes-percent-' + newestHeroe.id" class="loading-bar-like">
+                    <i class="fa-solid fa-thumbs-up"></i> {{ newestHeroe.votesDetails.likesPercent }} %
                 </div>
-                <ng-template #user_has_voted>
-                    <div>
-                        <div *ngIf="lastVote == voteType.LIKE">
-                            Ha registrado un like
-                        </div>
-                        <div *ngIf="lastVote == voteType.DISLIKE">
-                            Ha registrado un dislike
-                        </div>
-                        <button (click)="userHasVoted = false">VOLVER A VOTAR</button>
-                    </div>
-                </ng-template>
+                <div [id]="'hero-dislikes-percent-' + newestHeroe.id" class="loading-bar-dislike">
+                    <i class="fa-solid fa-thumbs-down"></i> {{ newestHeroe.votesDetails.dislikesPercent }} %
+                </div>
             </div>
         </div>
     </div>
-    <div *ngIf="olderHeroes">
+
+    <div class="container ">
+        <div class="row second-section">
+            <div class="col-md-3 second-section-init">
+                <p>Lorem, ipsum dolor.</p>
+                <p>Lorem, ipsum dolor.</p>
+            </div>
+            <div class="col-md-8 second-section-text">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio iusto fugiat magni molestias placeat quibusdam eligendi maxime consequatur repellat similique reprehenderit, cupiditate error aperiam explicabo! </p>
+            </div>
+            <div class="col-md-1 second-section-xmark">
+                <span><i class="fa-solid fa-xmark"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="olderHeroes" class="third-section">
         <div class="container">
             <div class="row">
-                <div *ngFor="let heroe of olderHeroes">
+                <h2>Super Heroes anteriores</h2>
+                <div class="col-12 col-md-6 third-section-col" *ngFor="let heroe of olderHeroes">
                     <app-heroe-card [heroe]="heroe"></app-heroe-card>
                 </div>
             </div>
         </div>
     </div>
+    
 </div>

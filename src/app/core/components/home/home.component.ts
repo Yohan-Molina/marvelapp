@@ -9,13 +9,14 @@ import { VoteType } from '@app/common/types/enums/vote-type';
 import { NEWEST_HEROE_ID } from '@app/common/constants/app';
 // Services
 import { HeroesService } from '@app/common/services/heroes.service';
+import { updateHeroeLoadPercentBars } from '@app/common/utils/heroes';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.sass']
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent {
   newestHeroe: Heroe | undefined;
   olderHeroes: Heroe[] | undefined;
   userHasVoted = false;
@@ -25,17 +26,13 @@ export class HomeComponent implements AfterViewInit {
     this.getHeroesData();
   }
 
-  ngAfterViewInit(): void {
-    this.updateNewestHeroeLoadPercentBars();
-  }
-
   like(heroe: Heroe): void {
     heroe.likes++;
     this.heroesService.updateHeroe(heroe).then(heroe => {
       this.userHasVoted = true;
       this.lastVote = VoteType.LIKE;
       this.getHeroesData();
-      this.updateNewestHeroeLoadPercentBars();
+      this.updateNewstHeroPercentBars();
     });
   }
 
@@ -45,7 +42,7 @@ export class HomeComponent implements AfterViewInit {
       this.userHasVoted = true;
       this.lastVote = VoteType.DISLIKE;
       this.getHeroesData();
-      this.updateNewestHeroeLoadPercentBars();
+      this.updateNewstHeroPercentBars();
     });
   }
 
@@ -66,44 +63,11 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
-  private updateNewestHeroeLoadPercentBars() {
+  updateNewstHeroPercentBars(): boolean {
     if (this.newestHeroe) {
-      this.updateHeroeLoadPercentBars(
-        this.newestHeroe,
-        'newest-hero-likes-percent',
-        'newest-hero-dislikes-percent'
-      );
+      updateHeroeLoadPercentBars(this.newestHeroe);
     }
-  }
-
-  private updateHeroeLoadPercentBars(
-    heroe: Heroe,
-    likesPercentBarId: string,
-    dislikesPercentBarId: string
-  ): void {
-    this.updateLoadPercentBars(
-      likesPercentBarId,
-      dislikesPercentBarId,
-      heroe.votesDetails.likesPercent,
-      heroe.votesDetails.dislikesPercent
-    );
-  }
-
-  private updateLoadPercentBars(
-    likesPercentBarId: string,
-    dislikesPercentBarId: string,
-    likesPercentBarValue: number,
-    dislikesPercentBarValue: number
-  ): void {
-    const likesPercentBar: HTMLElement | null = document.getElementById(likesPercentBarId);
-    const dislikesPercentBar: HTMLElement | null = document.getElementById(dislikesPercentBarId);
-
-    if (likesPercentBar) {
-      likesPercentBar.style.width = `${likesPercentBarValue}%`;
-    } else {}
-    if (dislikesPercentBar) {
-      dislikesPercentBar.style.width = `${dislikesPercentBarValue}%`;
-    } else {}
+    return true;
   }
 
 }
